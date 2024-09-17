@@ -4,6 +4,7 @@ import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
+import { observer } from "mobx-react-lite";
 
 import { useColorScheme } from '@/components/useColorScheme';
 
@@ -44,15 +45,18 @@ export default function RootLayout() {
   return <RootLayoutNav />;
 }
 
-function RootLayoutNav() {
-  const colorScheme = useColorScheme();
+const RootLayoutNav = observer(
+  () => {
+    const colorScheme = useColorScheme();
 
-  return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-      </Stack>
-    </ThemeProvider>
-  );
-}
+    return (
+
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <Stack >
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          {/*  <Stack.Screen name="modal" options={{ presentation: 'modal' }} /> */}
+        </Stack>
+      </ThemeProvider>
+    );
+  }
+)
