@@ -1,38 +1,38 @@
 import { IcartItem } from '@/types/IcartItem';
+import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { View, Text, Image, Button, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, Pressable } from 'react-native';
+import Entypo from '@expo/vector-icons/Entypo';
+import { useCarItemsStore } from '@/store/carItemsStorage';
 
 interface cartItemI {
     item: IcartItem,
-    changeItemCount: (id: string, value: number) => void,
-    deleteItem: (id: string) => void
-
 }
 
-const CartItem = ({ item, changeItemCount, deleteItem }: cartItemI) => {
+const CartItem = ({ item }: cartItemI) => {
+    const { addProductCount, deleteProduct, lessProductCount } = useCarItemsStore()
 
-    const less = () => {
-        item.count > 1 && changeItemCount(item.id, item.count - 1)
-    }
-
-    const more = () => {
-        changeItemCount(item.id, item.count + 1)
-    }
+    const imgUrl = 'https://s1.elespanol.com/2019/07/03/ciencia/nutricion/alimentacion-nutricion_410970417_127186274_1706x960.jpg'
 
     return (
         <View style={styles.cartItem}>
-            <Image source={{ uri: 'https://images.unsplash.com/photo-1495562569060-2eec283d3391?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }} style={styles.image} />
+            <Image source={{ uri: imgUrl }} style={styles.image} />
             <View style={styles.details}>
-                <Text style={styles.title}>{item.name}</Text>
-                <Text style={styles.title}>{item.details}</Text>
-                <Text style={styles.description}>{`${item.count} X $${item.price}.00`} = ${item.price * item.count}.00</Text>
+                <Text style={styles.title}>{item.name},</Text>
+                <Text style={styles.detailsInfo}>{item.details}</Text>
+                <View style={{ display: "flex", flexDirection: "row" }}>
+                    <Text style={styles.description}>{`${item.count} X $${item.price}.00`} = </Text>
+                    <Text style={styles.detailsInfo}>$ {item.price * item.count}.00</Text>
+                </View>
                 <View style={styles.quantityContainer}>
-                    <Button title="-" onPress={less} />
+                    <Pressable onPress={() => lessProductCount(item.id)}><Entypo name="minus" size={20} color="#00a3e0" /></Pressable>
                     <Text style={styles.quantity}>{item.count}</Text>
-                    <Button title="+" onPress={more} />
+                    <Pressable onPress={() => addProductCount(item.id)}><Entypo name="plus" size={20} color="#00a3e0" /></Pressable>
                 </View>
             </View>
-            <Button title="🗑" onPress={() => deleteItem(item.id)} />
+            <Pressable style={styles.deleteButton} onPress={() => deleteProduct(item.id)} >
+                <Ionicons name="trash-outline" size={24} color="#e65252" />
+            </Pressable>
         </View>
     );
 };
@@ -41,33 +41,62 @@ const styles = StyleSheet.create({
     cartItem: {
         flexDirection: 'row',
         alignItems: 'center',
+        marginLeft: 6,
         marginBottom: 15,
+        backgroundColor: "#efefef",
+        paddingVertical: 15
     },
     image: {
         width: 80,
-        height: 80,
+        height: 100,
         borderRadius: 8,
         marginRight: 10,
     },
     details: {
         flex: 1,
     },
+    moreless: {
+
+    },
     title: {
-        fontWeight: 'bold',
+        fontWeight: '600',
         fontSize: 16,
+        color: "#8b8e90"
+    },
+    detailsInfo: {
+        fontWeight: '600',
+        fontSize: 16,
+        color: "#000"
     },
     description: {
-        color: '#777',
+        color: '#5b5f62',
+        fontWeight: '500',
+        fontSize: 16,
+
     },
     quantityContainer: {
         flexDirection: 'row',
         alignItems: 'center',
+        justifyContent: "space-between",
         marginTop: 5,
+        width: 105,
+        borderRadius: 5,
+        borderColor: '#89d2ed',
+        borderWidth: 1,
+        paddingVertical: 3,
+        paddingHorizontal: 6,
+        backgroundColor: "#d3ebf4"
     },
     quantity: {
         marginHorizontal: 10,
         fontSize: 16,
+        fontWeight: '600'
     },
+    deleteButton: {
+        position: "absolute",
+        bottom: 0,
+        right: 70,
+    }
 });
 
 export default CartItem;

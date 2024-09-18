@@ -5,7 +5,7 @@ const ShippingDetails = () => {
     return (
         <View style={styles.container}>
             <Text style={styles.label}>Gastos de Envío:</Text>
-            <Text style={styles.amount}>Despachador $85.00</Text>
+            <Text style={styles.amount}>Despachador $ 85.00</Text>
         </View>
     );
 };
@@ -18,11 +18,13 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 16,
-        color: '#555',
+        color: '#8f9294',
+        fontWeight: "500"
     },
     amount: {
         fontSize: 16,
-        fontWeight: 'bold',
+        fontWeight: '600',
+        color: '#060606'
     },
 });
 

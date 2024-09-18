@@ -5,7 +5,6 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import { observer } from "mobx-react-lite";
-
 import { useColorScheme } from '@/components/useColorScheme';
 
 export {
@@ -51,7 +50,7 @@ const RootLayoutNav = observer(
 
     return (
 
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <ThemeProvider value={DefaultTheme}>
         <Stack >
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           {/*  <Stack.Screen name="modal" options={{ presentation: 'modal' }} /> */}

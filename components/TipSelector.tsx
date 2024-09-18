@@ -1,7 +1,7 @@
 
 import { IcartItem } from '@/types/IcartItem';
 import React, { useState } from 'react';
-import { View, Button, StyleSheet, Pressable, Text, } from 'react-native';
+import { View, StyleSheet, Pressable, Text, } from 'react-native';
 import ModalView from './modal';
 
 interface ITipSelector {
@@ -14,6 +14,8 @@ interface ITipSelector {
 
 const TipSelector = ({ selectedTip, setSelectedTip, item, tips, setCustomTip }: ITipSelector) => {
     const [modalview, setModalView] = useState(false)
+
+    const total = item.price * item.count
 
     const setModal = () => {
         setModalView(!modalview)
@@ -28,15 +30,13 @@ const TipSelector = ({ selectedTip, setSelectedTip, item, tips, setCustomTip }: 
                     {
                         borderColor: selectedTip == tip ? "#00a3e0" : "#46bbe7",
                         backgroundColor: selectedTip == tip ? "#00a3e0" : "#FFF"
-
                     }]}
                     onPress={() => {
                         setCustomTip(0)
                         setSelectedTip(tip)
-                    }}
-                >
-                    <Text>{`$ ${item.total * tips[index]}.00`}</Text>
-                    <Text>{`${(tip * 100).toFixed(0)}%`}</Text>
+                    }}>
+                    <Text style={[styles.upTextbutton, { color: selectedTip === tip ? "#FFF" : "#000" }]}>{`$  ${total * tips[index]}.00`}</Text>
+                    <Text style={[styles.downTextButton, { color: selectedTip === tip ? "#FFF" : "#8b8e90" }]}>{`${(tip * 100).toFixed(0)}%`}</Text>
                 </Pressable>
             ))}
             <ModalView modalView={modalview} setModal={setModal} selectedTip={selectedTip}
@@ -48,18 +48,26 @@ const TipSelector = ({ selectedTip, setSelectedTip, item, tips, setCustomTip }: 
 const styles = StyleSheet.create({
     tipContainer: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
+        gap: 8,
         marginVertical: 10,
     },
     button: {
         borderRadius: 6,
         paddingVertical: 4,
-        paddingHorizontal: 12,
-        elevation: 2,
-        borderWidth: 2,
+        borderWidth: 1,
+        width: 65,
         borderStyle: "solid",
-
-        color: "#000"
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        color: "#000",
+    },
+    upTextbutton: {
+        fontWeight: "600"
+    },
+    downTextButton: {
+        fontWeight: "500"
     }
 });
 

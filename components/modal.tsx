@@ -2,7 +2,6 @@
 import React, { useState } from 'react'
 import { Modal, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
-
 interface IModal {
     modalView: boolean,
     setModal: () => void,
@@ -12,7 +11,6 @@ interface IModal {
 }
 
 const ModalView = ({ modalView, setModal, selectedTip, setSelectedTip, setCustomTip }: IModal) => {
-
     const [text, setText] = useState('');
 
     const handleSubmit = () => {
@@ -21,19 +19,18 @@ const ModalView = ({ modalView, setModal, selectedTip, setSelectedTip, setCustom
     };
 
     return (
-        <View style={styles.centeredView}>
+        <View style={[styles.centeredView]}>
             <Modal
                 animationType="slide"
                 transparent={true}
                 visible={modalView}
                 onRequestClose={() => {
-                    //   Alert.alert('Modal has been closed.');
                     setModal()
                 }}>
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <TextInput
-                            style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                            style={styles.input}
                             onChangeText={text => setText(text)}
                             value={text}
                             placeholder="propina"
@@ -47,7 +44,11 @@ const ModalView = ({ modalView, setModal, selectedTip, setSelectedTip, setCustom
                 </View>
             </Modal>
             <Pressable
-                style={[styles.button, { backgroundColor: selectedTip === 0 ? "#00a3e0" : "#FFF", borderColor: selectedTip === 0 ? "#00a3e0" : "#46bbe7" }]}
+                style={[styles.button,
+                {
+                    backgroundColor: selectedTip === 0 ? "#00a3e0" : "#FFF",
+                    borderColor: selectedTip === 0 ? "#00a3e0" : "#46bbe7",
+                }]}
                 onPress={() => {
 
                     setModal()
@@ -55,7 +56,7 @@ const ModalView = ({ modalView, setModal, selectedTip, setSelectedTip, setCustom
                 }
                 }
             >
-                <Text style={styles.textStyle}>Personalizar Cantidad</Text>
+                <Text style={[styles.textStyle, { color: selectedTip === 0 ? "#FFF" : "#000" }]}>Personalizar Cantidad</Text>
             </Pressable>
         </View>
     )
@@ -63,39 +64,42 @@ const ModalView = ({ modalView, setModal, selectedTip, setSelectedTip, setCustom
 
 const styles = StyleSheet.create({
     centeredView: {
-        /*  flex: 1, */
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 2,
+        // backgroundColor: "red",
     },
     modalView: {
-        margin: 250,
+        position: "absolute",
+        top: 300,
+        left: "25%",
         backgroundColor: 'white',
         borderRadius: 20,
-        padding: 35,
+        padding: 20,
+        width: "50%",
         alignItems: 'center',
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
         elevation: 5,
     },
     button: {
-        borderRadius: 4,
-        padding: 10,
-        elevation: 2,
-        borderWidth: 2,
+        borderWidth: 1,
         borderStyle: "solid",
         borderColor: "#84C9EB",
-        color: "#000"
+        borderRadius: 6,
+        paddingVertical: 4,
+        height: 48,
+        paddingHorizontal: 12,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center"
     },
-
+    input: {
+        height: 40,
+        width: "80%",
+        marginBottom: 10,
+        borderBottomColor: '#84C9EB',
+        borderBottomWidth: 1
+    },
     textStyle: {
         color: '#000',
-        fontWeight: 'bold',
+        fontWeight: '500',
+        fontSize: 14,
         textAlign: 'center',
 
     },

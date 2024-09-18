@@ -1,8 +1,9 @@
 import React from 'react'
+import { Text } from 'react-native'
 
 const orders = () => {
     return (
-        <div>orders</div>
+        <Text>orders</Text>
     )
 }
 

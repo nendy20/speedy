@@ -4,6 +4,5 @@ export interface IcartItem {
     price: number,
     count: number,
     id: string,
-    total: number
 }
 

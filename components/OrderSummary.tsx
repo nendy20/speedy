@@ -2,19 +2,38 @@ import { IcartItem } from '@/types/IcartItem';
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-const OrderSummary = ({ selectedTip, item, tips, customTip }: { selectedTip: number, item: IcartItem, tips: number[], customTip: number }) => {
+interface IOrder {
+    selectedTip: number,
+    item: IcartItem,
+    tips: number[],
+    customTip: number
+}
+
+const OrderSummary = ({ selectedTip, item, customTip }: IOrder) => {
     const shipping: number = 85;
     const serviceFee: number = 10;
-    const result = (item.total + shipping + serviceFee);
-    const total = customTip >= 1 ? item.total + customTip : item.total + (item.total * selectedTip);
+    const total = item.price * item.count;
+    const result = (total + shipping + serviceFee);
+    const totalfinal = customTip >= 1 ? total + customTip : total + (total * selectedTip);
 
     return (
         <View style={styles.container}>
-            <Text>Subtotal: $ {item.total}.00</Text>
-            <Text>hola:{customTip}</Text>
-            <Text>Tarifa total de envío: $ {shipping}.00</Text>
-            <Text>Service Fee: $ {serviceFee}.00</Text>
-            <Text>Cantidad a pagar: $ {total}</Text>
+            <View style={styles.row}>
+                <Text style={styles.rowGraytext}>Subtotal:</Text>
+                <Text style={styles.rowGraytext}>$ {total}.00</Text>
+            </View>
+            <View style={styles.row}>
+                <Text style={styles.rowGraytext}>Tarifa total de envío:</Text>
+                <Text style={styles.rowGraytext}>$ {shipping}.00</Text>
+            </View>
+            <View style={styles.row}>
+                <Text style={styles.rowGraytext}>Service Fee:</Text>
+                <Text style={styles.rowGraytext}>$ {serviceFee}.00</Text>
+            </View>
+            <View style={styles.row}>
+                <Text style={styles.rowBlacktext}>Cantidad a pagar:</Text>
+                <Text style={styles.rowBlacktext}>$ {totalfinal}.00</Text>
+            </View>
         </View>
     );
 };
@@ -22,6 +41,25 @@ const OrderSummary = ({ selectedTip, item, tips, customTip }: { selectedTip: num
 const styles = StyleSheet.create({
     container: {
         marginVertical: 10,
+        display: "flex",
+        gap: 16
+    },
+    row: {
+        display: "flex",
+        flexDirection: "row",
+        paddingHorizontal: 15,
+        justifyContent: "space-between",
+        width: "100%"
+    },
+    rowGraytext: {
+        fontWeight: "600",
+        fontSize: 16,
+        color: "#939699"
+    },
+    rowBlacktext: {
+        fontWeight: "600",
+        fontSize: 18,
+        color: "#000"
     },
 });
 

@@ -1,12 +1,19 @@
-import React from 'react';
-import { View, TextInput, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, TextInput, StyleSheet, Text } from 'react-native';
 
 const SpecialInstructions = () => {
+    const [isFocused, setIsFocused] = useState(false);
+
     return (
         <View style={styles.container}>
+            {
+                !isFocused &&
+                <Text style={styles.placeholder}>Instrucciones Especiales</Text>
+            }
             <TextInput
-                style={styles.input}
-                placeholder="Instrucciones Especiales"
+                onFocus={() => setIsFocused(true)}
+                placeholderTextColor={'#8e9193'}
+                style={[styles.input]}
                 multiline
             />
         </View>
@@ -16,14 +23,22 @@ const SpecialInstructions = () => {
 const styles = StyleSheet.create({
     container: {
         marginVertical: 10,
+        backgroundColor: '#efefef',
+        height: 80,
+        borderRadius: 10
     },
     input: {
-        borderWidth: 1,
-        borderColor: '#ccc',
         borderRadius: 8,
         padding: 10,
-        backgroundColor: '#f1f1f1',
     },
+    placeholder: {
+        marginTop: 10,
+        marginLeft: 10,
+        color: "#8e9193",
+        fontWeight: "500",
+        fontSize: 16
+    },
+
 });
 
 export default SpecialInstructions;
