@@ -94,8 +94,8 @@ const styles = StyleSheet.create({
     },
     deleteButton: {
         position: "absolute",
-        bottom: 0,
-        right: 70,
+        bottom: 20,
+        right: 80,
     }
 });
 

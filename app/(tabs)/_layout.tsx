@@ -59,7 +59,7 @@ const Layout = () => {
                 name={focused ? "cart" : "cart-outline"}
                 color={focused ? "#019FDE" : "#000"}
                 size={25} />
-              {1 > 0 && (
+              {items !== 0 && (
                 <View
                   style={styles.Notification}>
                   <Text style={{ color: 'white', fontSize: 10, fontWeight: '700' }}>
@@ -114,8 +114,8 @@ const styles = StyleSheet.create({
     top: -5,
     backgroundColor: 'red',
     borderRadius: 10,
-    width: 15,
-    height: 15,
+    width: 20,
+    height: 20,
     justifyContent: 'center',
     alignItems: 'center',
   }
